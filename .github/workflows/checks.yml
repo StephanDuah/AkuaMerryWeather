@@ -1,0 +1,79 @@
+name: Checks
+
+# Runs on every push and pull request, plus once a week.
+#
+# The weekly run is the point of this file. A vulnerability is usually
+# disclosed long after the code was written, so a check that only runs when
+# somebody changes something will not find it. Monday morning, the whole
+# dependency tree is re-audited against what the world has learned since.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # 07:23 UTC every Monday.
+    #
+    # Deliberately not on the hour. GitHub queues every scheduled workflow in
+    # the world at :00, and runs that cannot be served in that window are
+    # delayed or dropped outright - which is what happened to the first one
+    # this was set to: the workflow was active, and the run simply never
+    # arrived. An odd minute sits outside the crush.
+    - cron: "23 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # Printed first so a failing run shows immediately whether the runner
+      # was set up correctly, rather than leaving that to be inferred.
+      - name: Environment
+        run: |
+          node --version
+          npm --version
+          echo "npm ignore-scripts: $(npm config get ignore-scripts)"
+
+      # `npm ci` installs exactly what the lockfile says and fails if
+      # package.json and the lockfile disagree - unlike `npm install`, which
+      # would quietly resolve something new and rewrite the lockfile.
+      # --ignore-scripts matches .npmrc; stated here as well so the
+      # protection does not depend on a config file being read.
+      - name: Install from the lockfile
+        run: npm ci --ignore-scripts
+
+      - name: Dependency and supply-chain checks
+        run: npm run audit:deps
+
+      # This project's pages use the route types Next generates from the app
+      # directory - PageProps<"/admin/prospects">, LayoutProps<"/admin"> and
+      # so on. They live in .next/types, which a fresh checkout does not have,
+      # so typechecking before generating them fails on all eleven pages that
+      # use them. `typegen` produces them without a full build.
+      - name: Generate route types
+        run: npx next typegen
+
+      - name: Types
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npx eslint src --ext .ts,.tsx
+
+      - name: Build
+        run: npm run build
+        env:
+          # The build must not need real credentials. If it ever does, that
+          # is the finding, not something to paper over with secrets here.
+          NEXT_TELEMETRY_DISABLED: "1"

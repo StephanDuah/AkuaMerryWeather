@@ -1,0 +1,87 @@
+{
+  "$comment": "Merry Cleaners company knowledge. Business facts only - edit this file to change what the AI agent and the website say. Never add a claim here that the business cannot evidence.",
+  "identity": {
+    "name": "Merry Cleaners",
+    "strapline": "Professional Cleaning Services",
+    "promise": "Premium commercial and domestic cleaning across Greater London, delivered by trained, DBS-checked and fully insured staff.",
+    "website": "https://www.merrycleaners.co.uk",
+    "founded_note": "PLACEHOLDER - the business has not supplied a founding date. Do not state one."
+  },
+  "contact": {
+    "phone_primary": "+44 7491 873636",
+    "phone_secondary": "+44 7351 553205",
+    "email": "admin@merrycleaners.co.uk",
+    "address": "313 Mare Street, London E8 1EJ",
+    "hours": "Monday to Saturday, 08:00 - 18:00",
+    "social": {
+      "$comment": "No social media profiles have been supplied. Do not invent handles or links.",
+      "profiles": []
+    }
+  },
+  "coverage": {
+    "area": "Greater London",
+    "statement": "We serve Greater London only.",
+    "outside_area_response": "We serve Greater London only, so unfortunately this address falls outside our coverage. I am sorry we cannot assist on this occasion.",
+    "excluded_sectors": [
+      "schools",
+      "colleges",
+      "universities",
+      "nurseries",
+      "hospitals",
+      "clinics",
+      "GP surgeries",
+      "care homes"
+    ],
+    "excluded_sector_response": "Thank you for thinking of us. We do not currently take on contracts in this sector, so I would not want to take up your time. If it would help, a member of our team can call you to discuss whether we can assist in any other way."
+  },
+  "credentials": [
+    {
+      "id": "insured",
+      "title": "Fully insured",
+      "detail": "Comprehensive public liability cover is in place for every job we undertake, with documentation available on request.",
+      "approved": true
+    },
+    {
+      "id": "dbs",
+      "title": "DBS-checked staff",
+      "detail": "Every cleaner who enters your property or premises has been DBS-checked and reference-verified before their first shift.",
+      "approved": true
+    },
+    {
+      "id": "trained",
+      "title": "Trained to a written standard",
+      "detail": "Our teams are trained against documented checklists for each service, so the same standard is delivered on every visit.",
+      "approved": true
+    },
+    {
+      "id": "photos",
+      "title": "Before and after photographs",
+      "detail": "We record the condition of the property on arrival and on completion, which gives landlords and agents clear evidence of the work.",
+      "approved": true
+    },
+    {
+      "id": "guarantee",
+      "title": "Our re-clean guarantee",
+      "detail": "If any area falls short of the agreed specification, tell us within 48 hours and we will return and put it right at no further cost.",
+      "approved": true
+    },
+    {
+      "id": "london_only",
+      "title": "Greater London only",
+      "detail": "We work across Greater London and nowhere else, which is what allows us to hold arrival times and turn a property around at short notice.",
+      "approved": true
+    }
+  ],
+  "customer_segments": {
+    "$comment": "Ranked by the business's stated growth priority. Used to classify leads.",
+    "priority": ["estate_agent", "business_office", "landlord", "airbnb_host"],
+    "also_served": ["homeowner", "tenant", "shop", "restaurant"],
+    "never_served": ["school", "hospital"]
+  },
+  "reviews": {
+    "$comment": "The business states it has reviews and testimonials, but none have been supplied with permission to publish. The agent may say reviews are available on request; it must not quote, summarise or count them.",
+    "published": [],
+    "may_say": "We are happy to share references and reviews on request.",
+    "must_not_say": "Any specific review text, customer name, star rating or review count."
+  }
+}

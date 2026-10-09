@@ -1,0 +1,2086 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   MERRY CLEANERS — DESIGN SYSTEM
+   --------------------------------------------------------------------------
+   Art direction: editorial and architectural rather than promotional. The
+   company sells trust to estate agents and facilities managers, so the page
+   is built from type, rule lines and a strict grid — not from cards and
+   gradients. Colour is spent sparingly: a deep navy ground derived from the
+   brand blue, the brand blue itself for interaction, and the brand orange
+   used only a handful of times per page so that it still means something.
+
+   Two token sets live here. The `@theme` block feeds the Tailwind utilities
+   used by the internal admin dashboard and must stay. The `:root` block below
+   is the public site's own system; the marketing pages use semantic classes
+   rather than utility soup so the art direction lives in one place.
+   ========================================================================== */
+
+@theme {
+  /* A tint/shade scale built from the logo's own blue (#0878b8) and
+     orange (#f09020), for the few places that still use utilities. */
+  --color-brand-50: #eef6fb;
+  --color-brand-100: #d7eaf5;
+  --color-brand-200: #aed5ea;
+  --color-brand-300: #6fb8dc;
+  --color-brand-400: #2b97c9;
+  --color-brand-500: #0878b8;
+  --color-brand-600: #06628f;
+  --color-brand-700: #06527a;
+  --color-brand-800: #084460;
+  --color-brand-900: #0a3449;
+
+  --color-accent-400: #f5aa54;
+  --color-accent-500: #f09020;
+  --color-accent-600: #cc7715;
+
+  --color-ink-500: #5c666d;
+  --color-ink-700: #4a5359;
+  --color-ink-900: #101316;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+}
+
+:root {
+  color-scheme: light;
+
+  /* -- Colour -------------------------------------------------------------
+     Sampled directly from the logo file: black 45%, blue #0878b8 29%,
+     orange #f09020 20%. The dark ground is therefore near-black rather than
+     navy, and the blue is the logo's own, not a muted stand-in.
+     Orange fails contrast as text on white (2.4:1), so it is used only for
+     rules, marks, and text on the dark ground (7.7:1).
+     ---------------------------------------------------------------------- */
+  --ink-ground: #101316;
+  --ink-raised: #191d21;
+  --ink-line: #2b3238;
+
+  --blue: #0878b8;
+  --blue-deep: #06628f;
+  --blue-tint: #e8f2f8;
+
+  --amber: #f09020;
+
+  --paper: #f2f3f4;
+  --panel: #ffffff;
+
+  --ink: #101316;
+  --ink-body: #4a5359;
+  --ink-meta: #5c666d;
+
+  --on-dark: #ffffff;
+  --on-dark-2: #c8cfd4;
+  --on-dark-3: #b4bdc3;
+  --on-dark-4: #9aa5ac;
+
+  --rule: #dde0e3;
+  --rule-firm: #c3c8cc;
+  --rule-dark: #2b3238;
+
+  /* -- Type ---------------------------------------------------------------
+     Three registers, each with a job.
+
+     --sans      Archivo. The voice of the site. Headlines are set in it at
+                 large sizes with negative tracking, because a grotesk only
+                 reads as confident when it is allowed to be big and tight.
+     --serif     Newsreader. Kept for the few moments where warmth earns its
+                 place - the promise, a pull quote - so the page is not
+                 uniformly technical.
+     --mono      Noto Sans Mono. Labels, specifications, figures. It is the
+                 device that makes a page read as measured rather than sold,
+                 and here it means something: this company's product is work
+                 done to a written specification.
+     ---------------------------------------------------------------------- */
+  --sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --mono: var(--font-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  /* Kept so existing rules that reference --display keep working. */
+  --display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+
+  --t-micro: 0.6875rem;
+  --t-label: 0.75rem;
+  --t-small: 0.8125rem;
+  --t-body: 0.9375rem;
+  --t-body-lg: 1.0625rem;
+  --t-lede: clamp(1.125rem, 1rem + 0.6vw, 1.4375rem);
+  --t-h3: clamp(1.1875rem, 1rem + 0.7vw, 1.5rem);
+  --t-h2: clamp(1.875rem, 1.3rem + 2.4vw, 3.25rem);
+  --t-h1: clamp(2.5rem, 1.6rem + 3.8vw, 4.75rem);
+  /* The one size allowed to dominate a viewport, used once per page.
+     Capped at 5rem: the first attempt went to 8.5rem, which overflowed the
+     hero, forced the headline to wrap into five ragged lines and pushed the
+     call to action off the screen. Large enough to command the page is not
+     the same as as large as possible. */
+  --t-display: clamp(2rem, 1rem + 3.6vw, 5rem);
+
+  /* Tracking tightens as type grows: a grotesk set large at default spacing
+     looks loose and amateurish, and set small at display tracking looks
+     cramped. */
+  --track-display: -0.035em;
+  --track-h1: -0.03em;
+  --track-h2: -0.022em;
+  --track-h3: -0.014em;
+  --track-label: 0.14em;
+
+  /* -- Space ------------------------------------------------------------- */
+  --gutter: 1.5rem;
+  --shell: 78rem;
+  --measure: 34rem;
+  /* Sections breathe considerably more than they did. Whitespace is the
+     cheapest thing that reads as expensive. */
+  --bay: clamp(5rem, 10vw, 11rem);
+  --bay-tight: clamp(3.5rem, 6vw, 6rem);
+
+  --radius: 2px;
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  /* A slower, more confident curve for anything that moves a long way. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 60rem) {
+  :root { --gutter: 2.5rem; }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Nothing may scroll the page sideways. A single over-wide element on a
+   phone turns the whole document into a horizontal scroller, which reads as
+   broken however good the rest of the page is.
+
+   The clip is the safety net, not the fix: the rule below is. A grid or
+   flex child defaults to min-width:auto, meaning "never smaller than my
+   content", so one long word or one large headline widens its column past
+   the screen. Allowing those children to shrink is what actually keeps the
+   page inside the viewport. */
+html, body { overflow-x: clip; }
+
+.shell > *,
+.hero-strip-row > *,
+.credentials-row > *,
+.index-row-media > *,
+.split > * {
+  min-width: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink-body);
+  font-family: var(--sans);
+  font-size: var(--t-body-lg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings are the grotesk now, not the serif: set large, heavy and tight,
+   which is what separates a considered page from a templated one. The serif
+   is still available through .in-serif for the moments that want warmth. */
+h1, h2, h3, h4 {
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: var(--track-h2);
+  line-height: 1.04;
+  text-wrap: balance;
+  margin: 0;
+  /* Optical alignment: a large grotesk sits visually inset from a rule or
+     an edge unless it is pulled back by a hair. */
+  margin-left: -0.02em;
+}
+
+h1 { letter-spacing: var(--track-h1); }
+h3, h4 { letter-spacing: var(--track-h3); font-weight: 600; }
+
+/* The serif register, for the few places warmth earns its keep. */
+.in-serif {
+  font-family: var(--serif);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.16;
+}
+
+.in-serif em { font-style: italic; }
+
+/* The monospace register: labels, specifications, figures. */
+.in-mono,
+.spec-label,
+.figure {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+p { margin: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+::selection { background: var(--ink-ground); color: #fff; }
+
+/* ==========================================================================
+   LAYOUT PRIMITIVES
+   ========================================================================== */
+
+.shell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  min-width: 0;
+}
+
+/* Long-form text never exceeds its container, whatever the container does. */
+.lede,
+.shell p,
+.shell h1,
+.shell h2,
+.shell h3 {
+  max-inline-size: 100%;
+  overflow-wrap: break-word;
+}
+
+.bay { padding-block: var(--bay); }
+
+.on-paper { background: var(--paper); }
+.on-panel { background: var(--panel); }
+
+.on-dark-section {
+  background: var(--ink-ground);
+  color: var(--on-dark-2);
+}
+
+.on-dark-section h1, .on-dark-section h2, .on-dark-section h3 { color: #fff; }
+
+/* Small-caps label used to open a section. One orange mark per section, max. */
+/* Section labels are monospace: small, spaced, precise. They read as a
+   reference mark on a drawing rather than as a marketing kicker. */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-meta);
+  margin: 0 0 1.75rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: var(--amber);
+  flex: none;
+}
+
+.on-dark-section .eyebrow { color: var(--on-dark-4); }
+
+.lede {
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--ink-body);
+  max-width: var(--measure);
+}
+
+.on-dark-section .lede { color: var(--on-dark-2); }
+
+/* ==========================================================================
+   BUTTONS — one language: 2px radius, no pills, no shadows.
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.875rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.btn-primary { background: var(--ink-ground); color: #fff; }
+.btn-primary:hover { background: var(--blue-deep); }
+
+.btn-outline {
+  border-color: var(--rule-firm);
+  color: var(--ink);
+  background: transparent;
+}
+.btn-outline:hover { border-color: var(--ink-ground); background: var(--panel); }
+
+.on-dark-section .btn-outline { border-color: var(--ink-line); color: #fff; }
+.on-dark-section .btn-outline:hover { border-color: #fff; background: transparent; }
+
+/* Over a photograph the outline button was dark ink on a dark image and all
+   but unreadable. On any dark ground it takes white text and a visible
+   border, with a faint wash behind it so it survives a light patch of the
+   photograph underneath. */
+.hero-media .btn-outline,
+.cta-band .btn-outline {
+  color: #fff;
+  border-color: rgb(255 255 255 / 0.55);
+  background: rgb(16 19 22 / 0.3);
+  backdrop-filter: blur(2px);
+}
+
+.hero-media .btn-outline:hover,
+.cta-band .btn-outline:hover {
+  border-color: #fff;
+  background: rgb(16 19 22 / 0.55);
+}
+
+.btn-light { background: #fff; color: var(--ink-ground); }
+.btn-light:hover { background: var(--blue-tint); }
+
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* Text link with a rule that draws in on hover. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--rule-firm);
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.link-arrow:hover { color: var(--ink-ground); border-color: var(--ink-ground); }
+.link-arrow svg { transition: transform 0.2s var(--ease); }
+.link-arrow:hover svg { transform: translateX(3px); }
+
+.on-dark-section .link-arrow { color: #fff; border-color: var(--ink-line); }
+.on-dark-section .link-arrow:hover { border-color: #fff; }
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 60;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.site-header[data-stuck="true"] {
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  border-bottom-color: var(--rule);
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 4.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: none;
+}
+
+.brand img { display: block; width: 2.75rem; height: 2.75rem; object-fit: contain; }
+
+.brand-name {
+  font-family: var(--display);
+  font-size: 1.1875rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+.brand-strap {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-meta);
+  margin-top: 0.2rem;
+}
+
+.nav { display: none; }
+
+@media (min-width: 64rem) {
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-inline-start: auto;
+  }
+}
+
+.nav a {
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--ink-body);
+  padding-block: 0.4rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.nav a:hover { color: var(--ink); border-bottom-color: var(--amber); }
+
+.header-actions { display: flex; align-items: center; gap: 1rem; flex: none; }
+
+.header-phone {
+  display: none;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 48rem) { .header-phone { display: block; } }
+
+.header-cta { display: none; }
+@media (min-width: 48rem) { .header-cta { display: inline-flex; } }
+
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.5rem;
+  border: 1px solid var(--rule-firm);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (min-width: 64rem) { .menu-button { display: none; } }
+
+/* Mobile navigation: a designed panel, not a squeezed desktop bar. */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink-ground);
+  color: #fff;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) var(--gutter)
+    calc(env(safe-area-inset-bottom, 0px) + 2rem);
+  animation: panel-in 0.25s var(--ease);
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+.mobile-nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ink-line);
+}
+
+.mobile-nav-title {
+  font-family: var(--display);
+  font-size: 1.125rem;
+  color: #fff;
+}
+
+.mobile-nav-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.mobile-nav-list { display: flex; flex-direction: column; margin-top: 0.5rem; }
+
+.mobile-nav-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.125rem 0;
+  border-bottom: 1px solid var(--ink-line);
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.mobile-nav-list a .idx {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--on-dark-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.mobile-nav-foot { margin-top: auto; padding-top: 2rem; display: grid; gap: 0.75rem; }
+
+.mobile-nav-foot a { font-size: var(--t-body); color: var(--on-dark-2); }
+.mobile-nav-foot .btn { width: 100%; }
+
+/* ==========================================================================
+   HERO — asymmetric editorial split, no gradient wash
+   ========================================================================== */
+
+.hero { border-bottom: 1px solid var(--rule); }
+
+.hero-grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(3rem, 6vw, 5.5rem) clamp(3rem, 6vw, 5rem);
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  .hero-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+}
+
+.hero h1 { font-size: var(--t-display); line-height: 1.02; letter-spacing: -0.03em; }
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--blue-deep);
+}
+
+.hero-lede { margin-top: 1.75rem; max-width: 33rem; }
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+/* The facts panel: real operating detail, set as a definition list. */
+.facts {
+  background: var(--ink-ground);
+  color: var(--on-dark-2);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  border-radius: var(--radius);
+}
+
+.facts h2 {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--on-dark-4);
+  margin-bottom: 1.25rem;
+}
+
+.facts dl { display: grid; gap: 0; }
+
+.facts div {
+  display: grid;
+  gap: 0.2rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--ink-line);
+}
+
+.facts div:first-of-type { border-top: none; padding-top: 0; }
+
+.facts dt {
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-dark-4);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--t-body);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.facts dd a:hover { color: var(--amber); }
+
+/* ==========================================================================
+   CREDENTIALS STRIP — a single rule-separated row, not a card grid
+   ========================================================================== */
+
+.credentials {
+  border-bottom: 1px solid var(--rule);
+  background: var(--panel);
+}
+
+.credentials-row {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 60rem) {
+  .credentials-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.credential {
+  padding: 1.5rem clamp(1rem, 2vw, 2rem);
+  border-left: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
+
+/* Two columns: no rule above the first row, none left of the first column. */
+.credential:nth-child(-n + 2) { border-top: none; }
+.credential:nth-child(odd) { border-left: none; }
+
+/* Four across: one row, so the horizontal rules come off entirely. */
+@media (min-width: 60rem) {
+  .credential { border-top: none; }
+  .credential:nth-child(odd) { border-left: 1px solid var(--rule); }
+  .credential:first-child { border-left: none; }
+}
+
+.credential dt {
+  font-family: var(--display);
+  font-size: 1.0625rem;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.credential dd {
+  margin: 0.35rem 0 0;
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink-meta);
+}
+
+/* ==========================================================================
+   SERVICE INDEX — numbered editorial rows (the order is the business's
+   own priority, so the numbering carries meaning)
+   ========================================================================== */
+
+.index { border-top: 1px solid var(--rule); }
+
+.index-row {
+  display: grid;
+  gap: 1.5rem clamp(1.5rem, 4vw, 3.5rem);
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .index-row {
+    grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+}
+
+.index-num {
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-meta);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.4rem;
+}
+
+.index-row h3 { font-size: var(--t-h2); line-height: 1.08; }
+
+.index-audience {
+  margin-top: 0.75rem;
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--blue-deep);
+}
+
+.index-body { display: grid; gap: 1.5rem; }
+
+.index-body p { font-size: var(--t-body); line-height: 1.65; }
+
+.index-includes {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.index-includes li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  font-size: var(--t-small);
+  color: var(--ink-meta);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.index-includes li::before {
+  content: "";
+  width: 0.375rem;
+  height: 1px;
+  background: var(--rule-firm);
+  margin-top: 0.65rem;
+}
+
+/* ==========================================================================
+   AUDIENCES — asymmetric, sticky heading
+   ========================================================================== */
+
+.split {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  .split { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  /* Used where the first column carries the primary content (forms, specs). */
+  .split-wide { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr); }
+  .split-sticky { position: sticky; top: 7.5rem; }
+}
+
+.audience-list { display: grid; }
+
+.audience {
+  display: grid;
+  gap: 0.6rem;
+  padding-block: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--rule);
+}
+
+.audience:first-child { border-top: none; padding-top: 0; }
+
+.audience h3 { font-size: var(--t-h3); }
+.audience p { font-size: var(--t-body); color: var(--ink-body); max-width: 36rem; }
+
+/* ==========================================================================
+   STANDARDS — navy section, two-column prose, no cards
+   ========================================================================== */
+
+.standards-grid {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+@media (min-width: 60rem) {
+  .standards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.standard { border-top: 1px solid var(--rule-dark); padding-top: 1.5rem; }
+
+.standard h3 {
+  font-size: var(--t-h3);
+  margin-bottom: 0.6rem;
+}
+
+.standard p { font-size: var(--t-body); line-height: 1.65; color: var(--on-dark-3); }
+
+/* ==========================================================================
+   CTA BAND
+   ========================================================================== */
+
+.cta-band {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--panel);
+}
+
+.cta-inner {
+  display: grid;
+  gap: 2rem;
+  padding-block: clamp(3rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .cta-inner { grid-template-columns: minmax(0, 1fr) auto; gap: 3rem; }
+}
+
+.cta-inner h2 { font-size: var(--t-h2); max-width: 26ch; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.site-footer { background: var(--ink-ground); color: var(--on-dark-4); }
+
+.footer-top {
+  display: grid;
+  gap: clamp(2.5rem, 4vw, 3.5rem);
+  padding-block: clamp(3.5rem, 6vw, 5rem);
+}
+
+@media (min-width: 48rem) {
+  .footer-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 64rem) {
+  .footer-top { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); }
+}
+
+.footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+.footer-brand img { width: 3rem; height: 3rem; object-fit: contain; }
+
+.footer-brand .brand-name { color: #fff; }
+.footer-brand .brand-strap { color: var(--on-dark-4); }
+
+.footer-about {
+  margin-top: 1.5rem;
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: var(--on-dark-4);
+  max-width: 28rem;
+}
+
+.footer-col h2 {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--on-dark-4);
+  margin-bottom: 1.125rem;
+}
+
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+
+.footer-col a, .footer-col li {
+  font-size: var(--t-body);
+  color: var(--on-dark-2);
+  transition: color 0.2s var(--ease);
+}
+
+.footer-col a:hover { color: #fff; }
+
+.footer-bottom {
+  border-top: 1px solid var(--ink-line);
+  padding-block: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--t-small);
+  color: var(--on-dark-4);
+}
+
+.footer-bottom nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.footer-bottom a:hover { color: #fff; }
+
+/* ==========================================================================
+   INNER PAGE HEADERS
+   ========================================================================== */
+
+.page-head { border-bottom: 1px solid var(--rule); }
+
+.page-head-inner { padding-block: clamp(2.75rem, 5vw, 4.5rem); }
+
+.page-head h1 { font-size: var(--t-h1); max-width: 20ch; }
+.page-head .lede { margin-top: 1.5rem; }
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--t-label);
+  color: var(--ink-meta);
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb span { color: var(--rule-firm); }
+
+/* ==========================================================================
+   SPEC LISTS (service detail)
+   ========================================================================== */
+
+.spec { display: grid; gap: 0; }
+
+.spec li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.875rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--t-body);
+  color: var(--ink-body);
+}
+
+.spec li:first-child { border-top: none; }
+
+.spec li::before {
+  content: "";
+  width: 1rem;
+  height: 1px;
+  background: var(--amber);
+  margin-top: 0.85rem;
+}
+
+.spec.muted li::before { background: var(--rule-firm); }
+.spec.muted li { color: var(--ink-meta); }
+
+.aside-panel {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.aside-panel + .aside-panel { margin-top: 1.5rem; }
+
+.aside-panel h2, .aside-panel h3 {
+  font-size: var(--t-h3);
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   FORMS
+   ========================================================================== */
+
+.form-panel {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin: 0 0 2rem;
+  padding: 0 0 1.25rem;
+  list-style: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+.steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rule-firm);
+}
+
+.steps li .n { font-variant-numeric: tabular-nums; }
+.steps li[data-state="current"] { color: var(--ink); }
+.steps li[data-state="done"] { color: var(--blue-deep); }
+
+.field { display: block; margin-bottom: 1.25rem; }
+
+.field > .label {
+  display: block;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.field > .hint {
+  display: block;
+  font-size: var(--t-small);
+  color: var(--ink-meta);
+  margin: -0.2rem 0 0.5rem;
+}
+
+.input, .select, .textarea {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--rule-firm);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.875rem;
+  min-height: 2.875rem;
+  transition: border-color 0.2s var(--ease);
+}
+
+.input::placeholder { color: #9aa9b4; }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--ink-meta); }
+.input:focus, .select:focus, .textarea:focus { border-color: var(--blue); outline-offset: 1px; }
+
+.textarea { min-height: 6rem; resize: vertical; }
+
+.field-row { display: grid; gap: 0 1.25rem; }
+@media (min-width: 40rem) { .field-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.checklist { display: grid; gap: 0.5rem; margin-top: 0.75rem; }
+@media (min-width: 40rem) { .checklist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.check {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease);
+}
+
+.check:hover { border-color: var(--rule-firm); }
+.check input { margin-top: 0.3rem; accent-color: var(--blue); }
+.check .t { font-size: var(--t-body); color: var(--ink); }
+.check .d { display: block; font-size: var(--t-small); color: var(--ink-meta); margin-top: 0.15rem; }
+
+.consent {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  font-size: var(--t-small);
+  color: var(--ink-meta);
+  line-height: 1.55;
+}
+
+.consent input { margin-top: 0.2rem; accent-color: var(--blue); }
+
+.notice {
+  border: 1px solid var(--amber);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  background: #fdf6ed;
+  padding: 0.875rem 1rem;
+  font-size: var(--t-body);
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+/* ---- field-level errors ---------------------------------------------
+   A message shown beside the box it belongs to, so the visitor is never
+   left hunting for which field the form objected to. Red is reserved for
+   this: the amber .notice above is for information, so an error needs to
+   look different rather than louder. */
+
+.field-error {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: #98261f;
+  /* A leading mark, so the message reads as an error without relying on
+     colour alone - which is invisible to a colour-blind visitor. */
+  padding-left: 1.15rem;
+  position: relative;
+  line-height: 1.45;
+}
+
+.field-error::before {
+  content: "!";
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: #98261f;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 0.85rem;
+  text-align: center;
+}
+
+/* The box itself shows it is the one at fault. */
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: #98261f;
+  background: #fdf7f6;
+}
+
+.input[aria-invalid="true"]:focus,
+.select[aria-invalid="true"]:focus,
+.textarea[aria-invalid="true"]:focus {
+  border-color: #98261f;
+  outline: 2px solid #98261f;
+  outline-offset: 1px;
+}
+
+/* The summary at the top of the form, when a submission is refused. */
+.notice[data-tone="error"] {
+  border-color: #98261f;
+  background: #fdf1f0;
+}
+
+/* Quote result */
+.quote-result {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--blue-tint);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  margin-bottom: 2rem;
+}
+
+.quote-result .meta {
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+}
+
+.quote-result .amount {
+  font-family: var(--display);
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 2.75rem);
+  color: var(--ink);
+  margin-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.quote-result .sub { font-size: var(--t-small); color: var(--ink-body); margin-top: 0.5rem; }
+.quote-result .disclaimer { font-size: var(--t-small); color: var(--ink-meta); margin-top: 0.75rem; }
+
+.slot-grid { display: grid; gap: 0.5rem; }
+@media (min-width: 40rem) { .slot-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.slot {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--rule-firm);
+  border-radius: var(--radius);
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.slot:hover:not([disabled]) { border-color: var(--ink-ground); background: var(--blue-tint); }
+.slot[disabled] { opacity: 0.5; cursor: not-allowed; }
+.slot .d { display: block; font-size: var(--t-body); font-weight: 600; color: var(--ink); }
+.slot .t { display: block; font-size: var(--t-small); color: var(--ink-meta); margin-top: 0.15rem; }
+
+/* ==========================================================================
+   PROSE (privacy)
+   ========================================================================== */
+
+.prose { max-width: 40rem; }
+.prose h2 { font-size: var(--t-h3); margin: 2.5rem 0 0.75rem; }
+.prose h2:first-child { margin-top: 0; }
+.prose p { font-size: var(--t-body); line-height: 1.7; margin-top: 0.875rem; }
+.prose ul { margin: 0.875rem 0 0; padding-left: 1.125rem; }
+.prose li { font-size: var(--t-body); line-height: 1.7; margin-top: 0.4rem; }
+.prose strong { font-weight: 600; color: var(--ink); }
+.prose a { color: var(--blue-deep); border-bottom: 1px solid var(--rule-firm); }
+.prose a:hover { border-color: var(--blue-deep); }
+
+/* ==========================================================================
+   CHAT WIDGET
+   ========================================================================== */
+
+.chat-launch {
+  position: fixed;
+  right: var(--gutter);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--ink-ground);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -12px rgb(16 19 22 / 0.5);
+  transition: background-color 0.2s var(--ease);
+}
+
+.chat-launch:hover { background: var(--blue-deep); }
+
+/* The launcher is the one persistent piece of interface on the page, so it
+   earns a little more care: it lifts on hover, and the amber mark is the
+   same one used as a section rule elsewhere, which ties it to the page
+   rather than leaving it looking like a third-party widget. */
+.chat-launch {
+  font-family: var(--mono);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  transition:
+    background-color 0.25s var(--ease),
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.chat-launch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px -14px rgb(16 19 22 / 0.6);
+}
+
+.chat-launch:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.chat-panel {
+  position: fixed;
+  right: var(--gutter);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  width: min(23.5rem, calc(100vw - 2 * var(--gutter)));
+  height: min(34rem, calc(100vh - 8rem));
+  background: var(--panel);
+  border: 1px solid var(--rule-firm);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 70px -28px rgb(16 19 22 / 0.55);
+  overflow: hidden;
+}
+
+/* The panel grows from the corner it was opened from rather than appearing.
+   Short and eased hard, so it reads as the page responding rather than as
+   an animation being played at the visitor. */
+@media (prefers-reduced-motion: no-preference) {
+  .chat-panel {
+    animation: chat-open 0.42s var(--ease-out) both;
+    transform-origin: bottom right;
+  }
+
+  @keyframes chat-open {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.125rem;
+  background: var(--ink-ground);
+  color: #fff;
+}
+
+.chat-head .t {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.chat-head .s {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-dark-4);
+  margin-top: 0.3rem;
+}
+
+.chat-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--paper);
+}
+
+.msg {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  padding: 0.75rem 0.875rem;
+  border-radius: var(--radius);
+  max-width: 92%;
+}
+
+.msg.from-us {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  color: var(--ink-body);
+  /* A squared corner on the side the message comes from: the smallest
+     possible cue about who is speaking, without avatars or name labels. */
+  border-bottom-left-radius: 0;
+}
+
+.msg.from-them {
+  background: var(--ink-ground);
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+}
+
+.msg.thinking {
+  color: var(--ink-meta);
+  font-style: italic;
+  background: transparent;
+  border: none;
+  padding-left: 0;
+}
+
+/* Each message arrives rather than appearing. */
+@media (prefers-reduced-motion: no-preference) {
+  .msg { animation: msg-in 0.4s var(--ease-out) both; }
+
+  @keyframes msg-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+.chat-suggestions { display: grid; gap: 0.4rem; margin-top: 0.25rem; }
+
+.chat-suggestions button {
+  text-align: left;
+  font-size: var(--t-small);
+  color: var(--blue-deep);
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.625rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease);
+}
+
+.chat-suggestions button:hover {
+  border-color: var(--blue);
+  background: var(--blue-tint);
+}
+
+.chat-suggestions button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  border-top: 1px solid var(--rule);
+  background: var(--panel);
+}
+
+.chat-form .input { min-height: 2.5rem; padding-block: 0.5rem; }
+
+.chat-send {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--ink-ground);
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-send[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+.chat-legal {
+  padding: 0 0.875rem 0.875rem;
+  background: var(--panel);
+  font-size: var(--t-micro);
+  line-height: 1.5;
+  color: var(--ink-meta);
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.stack-sm { display: grid; gap: 0.75rem; }
+.stack { display: grid; gap: 1.5rem; }
+
+
+/* ==========================================================================
+   PHOTOGRAPHY
+   --------------------------------------------------------------------------
+   Every photograph is chosen to depict the specific service beside it. The
+   treatment is deliberately plain - a square frame, a considered crop, no
+   heavy overlays - so the work itself does the talking.
+   ========================================================================== */
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--ink-raised);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+
+/* Only frames that link somewhere invite a hover. */
+a.photo:hover img,
+.photo-zoom:hover img {
+  transform: scale(1.035);
+}
+
+.photo-4x3 { aspect-ratio: 4 / 3; }
+.photo-3x2 { aspect-ratio: 3 / 2; }
+.photo-1x1 { aspect-ratio: 1 / 1; }
+.photo-4x5 { aspect-ratio: 4 / 5; }
+.photo-tall { aspect-ratio: 3 / 4; }
+
+/* A caption that says what the photograph shows, never who is in it. */
+.photo-note {
+  margin-top: 0.625rem;
+  font-size: var(--t-small);
+  color: var(--ink-meta);
+}
+
+/* ---- hero ------------------------------------------------------------- */
+
+/* The hero now fills the screen, but not more than it: 100vh on a phone
+   leaves the browser chrome cutting the type in half, so it is capped and
+   uses the small-viewport unit where that is supported. The section below
+   is deliberately allowed to show at the bottom edge on tall screens - a
+   page that ends exactly at the fold looks like it has nothing after it. */
+.hero-media {
+  position: relative;
+  min-height: clamp(34rem, 88vh, 58rem);
+  min-height: clamp(34rem, 88svh, 58rem);
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  background: var(--ink-ground);
+}
+
+.hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;
+}
+
+/* A scrim, not a wash: readable type without hiding the photograph. */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      rgb(16 19 22 / 0.9) 0%,
+      rgb(16 19 22 / 0.78) 38%,
+      rgb(16 19 22 / 0.34) 66%,
+      rgb(16 19 22 / 0.16) 100%
+    ),
+    /* A second, vertical pass so the foot of the hero stays dark enough for
+       the buttons regardless of what the photograph is doing there. */
+    linear-gradient(
+      to top,
+      rgb(16 19 22 / 0.55) 0%,
+      rgb(16 19 22 / 0) 38%
+    );
+}
+
+@media (max-width: 48rem) {
+  .hero-media::after {
+    background: linear-gradient(
+      180deg,
+      rgb(16 19 22 / 0.5) 0%,
+      rgb(16 19 22 / 0.78) 55%,
+      rgb(16 19 22 / 0.92) 100%
+    );
+  }
+  .hero-media img { object-position: 60% 45%; }
+}
+
+.hero-media-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(3.5rem, 9vw, 7rem);
+  /* Wide enough that each written line fits on one visual line. A line that
+     wraps defeats the reveal, because the clip is per written line.
+     min() rather than a bare max-width: this is a grid item, and a grid
+     item's default min-width is its content, so a wide headline pushes the
+     whole column past the screen instead of wrapping inside it. */
+  max-width: min(60rem, 100%);
+  min-width: 0;
+}
+
+.hero-media h1 {
+  color: var(--on-dark);
+  font-size: var(--t-display);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: var(--track-display);
+}
+
+/* The one word the sentence turns on, set in the serif. Two registers in
+   one line is a deliberate editorial device - it marks the word as the
+   argument rather than as decoration, and it is used once on the page. */
+.hero-media h1 em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  color: #8ccdef;
+  letter-spacing: -0.015em;
+}
+
+.hero-media .lede {
+  color: var(--on-dark-2);
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 36rem;
+  font-size: var(--t-lede);
+  line-height: 1.55;
+}
+
+.hero-media .eyebrow { color: var(--on-dark-4); }
+
+/* A rule between the label and the headline, drawn on entry. Small, but it
+   is what makes the block read as typeset rather than stacked. */
+.hero-rule {
+  height: 1px;
+  background: rgb(255 255 255 / 0.28);
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  transform-origin: left center;
+}
+
+/* A quiet mark at the foot of the hero telling the visitor there is more.
+   It fades out as soon as the page is scrolled, so it never nags. */
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.5);
+  pointer-events: none;
+}
+
+.hero-scroll span {
+  display: block;
+  width: 1px;
+  height: 2.25rem;
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.5),
+    rgb(255 255 255 / 0)
+  );
+}
+
+@media (max-width: 48rem) {
+  .hero-scroll { display: none; }
+}
+
+/* A slim strip of operating facts sitting under the hero. */
+.hero-strip {
+  background: var(--ink-raised);
+  border-top: 1px solid var(--ink-line);
+}
+
+.hero-strip-row {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 60rem) {
+  .hero-strip-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.hero-strip-item {
+  padding: 1.125rem clamp(0.75rem, 2vw, 1.5rem);
+  border-left: 1px solid var(--ink-line);
+  border-top: 1px solid var(--ink-line);
+  /* A grid item defaults to min-width:auto, so a long address pushes the
+     column wider than the screen instead of wrapping inside it. */
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.hero-strip-item dt {
+  font-family: var(--mono);
+  letter-spacing: 0.12em;
+}
+
+.hero-strip-item:nth-child(-n + 2) { border-top: none; }
+.hero-strip-item:nth-child(odd) { border-left: none; }
+
+@media (min-width: 60rem) {
+  .hero-strip-item { border-top: none; }
+  .hero-strip-item:nth-child(odd) { border-left: 1px solid var(--ink-line); }
+  .hero-strip-item:first-child { border-left: none; }
+}
+
+.hero-strip-item dt {
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-4);
+}
+
+.hero-strip-item dd {
+  margin: 0.3rem 0 0;
+  font-size: var(--t-body);
+  color: var(--on-dark);
+}
+
+.hero-strip-item dd a:hover { color: var(--amber); }
+
+/* ---- editorial image + text bands ------------------------------------- */
+
+.band {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .band-media-right .band-media { order: 2; }
+  /* Alternating sides keeps the rhythm from feeling mechanical. */
+  .band-wide-text { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+}
+
+.band-body h2 { font-size: var(--t-h2); }
+.band-body .lede { margin-top: 1.125rem; }
+.band-body .spec { margin-top: 1.5rem; }
+.band-body .link-arrow { margin-top: 1.5rem; }
+
+/* A two-photograph pairing: the work, then the result. */
+.pair {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pair .photo:first-child { margin-top: clamp(1rem, 3vw, 2.5rem); }
+
+/* ---- full-bleed photographic break ------------------------------------ */
+
+.plate {
+  position: relative;
+  min-height: clamp(18rem, 42vh, 28rem);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: var(--ink-ground);
+}
+
+.plate img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    95deg,
+    rgb(16 19 22 / 0.86) 0%,
+    rgb(16 19 22 / 0.64) 45%,
+    rgb(16 19 22 / 0.22) 100%
+  );
+}
+
+.plate-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  max-width: 40rem;
+}
+
+.plate-inner h2 { color: var(--on-dark); font-size: var(--t-h2); }
+.plate-inner .lede { color: var(--on-dark-2); margin-top: 1rem; }
+
+/* ---- service index with imagery --------------------------------------- */
+
+.index-row-media {
+  display: grid;
+  gap: 1.75rem clamp(1.5rem, 5vw, 4.5rem);
+  padding-block: clamp(3rem, 6vw, 5.5rem);
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+}
+
+.index-row-media:first-child { padding-top: clamp(1rem, 2vw, 2rem); }
+
+@media (min-width: 60rem) {
+  .index-row-media {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  /* Alternating sides so the three services read as a rhythm rather than
+     as three identical rows. */
+  .index-row-media:nth-child(even) .index-media { order: 2; }
+}
+
+.index-media {
+  position: relative;
+  overflow: hidden;
+}
+
+/* The photograph lifts very slightly under the cursor, and the whole panel
+   darkens a touch - enough to say "this is a link" without a hover card. */
+.index-media img {
+  transition: transform 0.9s var(--ease-out), filter 0.5s var(--ease);
+  will-change: transform;
+}
+
+.index-media:hover img,
+.index-media:focus-visible img {
+  transform: scale(1.035);
+  filter: brightness(1.04);
+}
+
+/* The index number, set as a reference mark rather than a badge. */
+.index-media .num {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background: var(--ink-ground);
+  color: var(--on-dark);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Service names carry real weight: these are the three things the company
+   sells, and they should read as headings, not list items. */
+.index-row-media h3 {
+  font-size: clamp(1.75rem, 1.1rem + 2.2vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: var(--track-h2);
+  line-height: 1.02;
+}
+
+.index-audience {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-meta);
+  margin-top: 0.85rem;
+}
+
+/* What is included reads as a specification: monospace, ruled, countable. */
+.index-includes {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.index-includes li {
+  font-family: var(--mono);
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink-body);
+  padding: 0.7rem 0 0.7rem 1.6rem;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.index-includes li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+}
+
+/* ==========================================================================
+   MOTION
+   --------------------------------------------------------------------------
+   Restrained and varied: the hero settles on load, sections rise a little as
+   they arrive, photographs ease in rather than sliding. Nothing loops, and
+   nothing moves after it has arrived. Every rule is disabled outright under
+   prefers-reduced-motion, and the page reads correctly with motion off.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.7s var(--ease),
+      transform 0.7s var(--ease);
+    /* A failsafe, in CSS so it works even if the observer never runs.
+       If something has gone wrong - a slow device, a script error, a
+       blocked bundle - every hidden element becomes visible on its own
+       after three seconds. Content that is invisible until JavaScript
+       succeeds is content that is sometimes simply missing, and no
+       animation is worth that. */
+    animation: reveal-failsafe 0.01s linear 3s forwards;
+  }
+
+  @keyframes reveal-failsafe {
+    to {
+      opacity: 1;
+      transform: none;
+      clip-path: inset(0 0 0 0);
+      scale: 1 1;
+    }
+  }
+
+  /* Photographs settle rather than travel. */
+  .motion-ready [data-reveal="media"] {
+    transform: none;
+    clip-path: inset(8% 0 0 0);
+    transition:
+      opacity 0.8s var(--ease),
+      clip-path 0.9s var(--ease);
+  }
+
+  .motion-ready [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* A short stagger down a list, capped so nothing is left waiting. */
+  .motion-ready [data-reveal][data-delay="1"] { transition-delay: 70ms; }
+  .motion-ready [data-reveal][data-delay="2"] { transition-delay: 140ms; }
+  .motion-ready [data-reveal][data-delay="3"] { transition-delay: 210ms; }
+
+  /* ---- headings revealed a line at a time ---------------------------
+     The single most effective motion on the page, and the one most often
+     done badly. Each line is clipped by its own wrapper and rises from
+     under it, so the type appears to be uncovered rather than flown in.
+
+     The lines are produced by <Lines> at build time, so the markup is real
+     text: a screen reader reads one uninterrupted heading, and with
+     JavaScript off or motion reduced the heading is simply visible. */
+  /* The generic reveal above would fade and lift the whole heading as well
+     as clipping each line. One or the other, not both. */
+  .motion-ready [data-reveal="lines"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .lines { display: block; }
+
+  .lines .line {
+    display: block;
+    overflow: hidden;
+    /* A hair of padding so descenders are not shaved by the clip. */
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .motion-ready .lines .line > span {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 0.95s var(--ease-out);
+  }
+
+  /* Below the width at which the written lines fit, the clipping is turned
+     off entirely and the heading is allowed to wrap.
+
+     This matters more than it sounds. Each line is clipped by its own box,
+     so a line too long for the screen is not wrapped - it is cut off, and
+     the words are simply gone. A mobile screenshot showed "A cleaning
+     compan" and "evidence" sliced at the edge. On a narrow screen the
+     heading fades in as one block instead, which is the right trade: the
+     effect is worth having, losing the words is not. */
+  @media (max-width: 52rem) {
+    /* Each written line stays its own block and is allowed to wrap inside
+       itself. Going inline instead ran the lines together -
+       "companybuilt", "evidence,not" - because the gap between them was
+       only ever the block boundary. */
+    .motion-ready .lines .line {
+      overflow: visible;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    .motion-ready .lines .line > span {
+      transform: none;
+      transition: none;
+    }
+    .motion-ready .hero-enter .lines .line > span { animation: none; }
+    .motion-ready .hero-enter .lines {
+      animation: hero-rise 1s var(--ease-out) both;
+      animation-delay: 0.18s;
+    }
+  }
+
+  .motion-ready .lines.is-in .line > span { transform: none; }
+
+  .motion-ready .lines .line:nth-child(2) > span { transition-delay: 90ms; }
+  .motion-ready .lines .line:nth-child(3) > span { transition-delay: 180ms; }
+  .motion-ready .lines .line:nth-child(4) > span { transition-delay: 270ms; }
+
+  /* ---- photographs uncovered by a moving mask ------------------------
+     A wipe plus a slow settle of scale. The scale is small on purpose:
+     anything more reads as a slideshow effect rather than as photography
+     being placed. */
+  .motion-ready [data-reveal="mask"] {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1.05s var(--ease-out);
+  }
+
+  .motion-ready [data-reveal="mask"].is-in { clip-path: inset(0 0 0 0); }
+
+  .motion-ready [data-reveal="mask"] img {
+    transform: scale(1.06);
+    transition: transform 1.4s var(--ease-out);
+  }
+
+  .motion-ready [data-reveal="mask"].is-in img { transform: none; }
+
+  /* ---- a rule that draws itself ------------------------------------- */
+  .motion-ready [data-reveal="rule"] {
+    opacity: 1;
+    transform: none;
+    transform-origin: left center;
+    scale: 0 1;
+    transition: scale 0.9s var(--ease-out);
+  }
+
+  .motion-ready [data-reveal="rule"].is-in { scale: 1 1; }
+
+  /* The hero animates on LOAD, never on scroll.
+     Content above the fold that waits for an IntersectionObserver is
+     content that is briefly missing - and, if the observer never runs,
+     missing for good. The screenshot of the first attempt showed exactly
+     that: a hero with no headline. */
+  .motion-ready .hero-enter > * {
+    animation: hero-rise 1s var(--ease-out) both;
+  }
+
+  .motion-ready .hero-enter .lines .line > span {
+    transform: none;
+    transition: none;
+    animation: line-rise 1.05s var(--ease-out) both;
+  }
+
+  .motion-ready .hero-enter .lines .line:nth-child(1) > span { animation-delay: 0.18s; }
+  .motion-ready .hero-enter .lines .line:nth-child(2) > span { animation-delay: 0.28s; }
+  .motion-ready .hero-enter .lines .line:nth-child(3) > span { animation-delay: 0.38s; }
+
+  @keyframes line-rise {
+    from { transform: translateY(105%); }
+    to { transform: none; }
+  }
+  .motion-ready .hero-enter > *:nth-child(2) { animation-delay: 0.12s; }
+  /* The h1 is uncovered line by line, so it must not also fade as a block. */
+  .motion-ready .hero-enter > h1 { animation: none; opacity: 1; transform: none; }
+  .motion-ready .hero-enter > *:nth-child(3) { animation-delay: 0.24s; }
+  .motion-ready .hero-enter > *:nth-child(4) { animation-delay: 0.36s; }
+
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* The hero photograph drifts almost imperceptibly for as long as it is on
+     screen. It runs once, over half a minute, and ends - a loop would be
+     movement for its own sake, and this is meant to be felt rather than
+     noticed. */
+  .motion-ready .hero-media > img,
+  .motion-ready .hero-media picture > img {
+    animation: hero-drift 34s var(--ease-out) both;
+  }
+
+  @keyframes hero-drift {
+    from { transform: scale(1.1); }
+    to { transform: scale(1.005); }
+  }
+}

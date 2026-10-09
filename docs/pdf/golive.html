@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Merry Cleaners — Your Go-Live Checklist</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 16mm; }
+
+  :root {
+    --ink: #101316;
+    --body: #33404a;
+    --meta: #5c666d;
+    --rule: #d3d9dd;
+    --blue: #06628f;
+    --amber: #b06a12;
+    --green: #0f6b3f;
+    --red: #98261f;
+    --paper: #f4f6f7;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, system-ui, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: var(--body);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h1, h2, h3 { color: var(--ink); margin: 0; font-weight: 600; }
+
+  .cover { height: 245mm; display: flex; flex-direction: column; justify-content: center; page-break-after: always; }
+  .cover .kicker { font-size: 8.5pt; letter-spacing: .22em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+  .cover h1 { font-size: 30pt; line-height: 1.1; margin-top: 10mm; letter-spacing: -.02em; }
+  .cover .sub { font-size: 12pt; color: var(--meta); margin-top: 6mm; max-width: 130mm; }
+  .cover .meta { margin-top: 16mm; border-top: 2px solid var(--ink); padding-top: 5mm; font-size: 9.5pt; color: var(--meta); }
+  .cover .meta strong { color: var(--ink); }
+
+  h2.part { font-size: 16pt; border-bottom: 2px solid var(--ink); padding-bottom: 2.5mm; margin-top: 12mm; }
+  .newpage { page-break-before: always; }
+  section { page-break-inside: avoid; margin-top: 8mm; }
+
+  p { margin: 2.5mm 0 0; }
+  ul, ol { margin: 2.5mm 0 0; padding-left: 5mm; }
+  li { margin-top: 1.5mm; }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--blue); text-decoration: none; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 3.5mm; font-size: 9.5pt; }
+  th { text-align: left; font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); padding: 2mm 3mm 1.5mm 0; font-weight: 600; }
+  td { border-bottom: 1px solid var(--rule); padding: 2.2mm 3mm 2.2mm 0; vertical-align: top; }
+  td.name { color: var(--ink); font-weight: 600; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .url { display: block; font-size: 8pt; color: var(--meta); font-weight: 400; word-break: break-all; }
+
+  .task { page-break-inside: avoid; margin-top: 6mm; border-left: 3px solid var(--blue); padding-left: 5mm; }
+  .task.must { border-left-color: var(--red); }
+  .task.soon { border-left-color: var(--amber); }
+  .task.later { border-left-color: var(--rule); }
+  .task h3 { font-size: 11.5pt; }
+  .task .tag { font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+  .task.must .tag { color: var(--red); }
+  .task.soon .tag { color: var(--amber); }
+  .task.later .tag { color: var(--meta); }
+  .task .time { font-size: 8.5pt; color: var(--meta); font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+  .note { background: var(--paper); border-radius: 2px; padding: 3.5mm 4mm; margin-top: 3.5mm; font-size: 9.5pt; }
+  .note .cap { font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--meta); font-weight: 600; }
+  .warn { background: #fdf4e7; border-left: 3px solid var(--amber); }
+  .good { background: #eaf5ee; border-left: 3px solid var(--green); }
+  .stop { background: #fbeceb; border-left: 3px solid var(--red); }
+
+  .totals { display: flex; gap: 4mm; margin-top: 5mm; }
+  .tot { flex: 1; border: 1px solid var(--rule); border-top: 3px solid var(--rule); padding: 4mm; }
+  .tot.lead { border-top-color: var(--amber); }
+  .tot .cap { font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase; color: var(--meta); font-weight: 600; }
+  .tot .amt { font-size: 19pt; color: var(--ink); font-weight: 600; margin-top: 2mm; font-variant-numeric: tabular-nums; }
+  .tot .yr { font-size: 8.5pt; color: var(--meta); }
+  .tot .desc { font-size: 8.5pt; margin-top: 2.5mm; }
+
+  .box { border: 1px solid var(--rule); padding: 4mm; margin-top: 4mm; }
+  .box h3 { font-size: 10.5pt; }
+
+  .footer { margin-top: 12mm; border-top: 1px solid var(--rule); padding-top: 3mm; font-size: 8.5pt; color: var(--meta); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="kicker">Merry Cleaners</p>
+  <h1>Your go-live checklist</h1>
+  <p class="sub">Everything still waiting on you, what each one unlocks, and every subscription the system needs to run properly — with prices and where to buy them.</p>
+  <div class="meta">
+    <p><strong>Prepared 19 September 2026</strong></p>
+    <p>The system is built, tested and deployed. Nothing in this document is development work — it is the list of things only you can do, because they need your identity, your bank details or your decision.</p>
+    <p><strong>No paid service has been activated.</strong> Nothing has been subscribed to, no card entered, no credit bought. Every figure here is what you would pay if you choose to.</p>
+  </div>
+</div>
+
+<!-- ============================ PART 1 ============================ -->
+<h2 class="part">Part 1 — Where things stand</h2>
+
+<section>
+  <div class="note good">
+    <p class="cap">Built and working</p>
+    <p>The website, the AI assistant, the booking diary, the follow-up automation, the email handling, the owner dashboard with eleven tabs, the prospecting agent, and a security review with the weaknesses it found already fixed.</p>
+    <p><strong>Tests:</strong> 34 agent checks, 44 prospecting checks and 48 security checks all pass. All eleven dashboard tabs, seven public pages and the whole customer journey were verified on the live site on 19 September 2026.</p>
+  </div>
+
+  <div class="note stop">
+    <p class="cap">Why it is not live yet</p>
+    <p><strong>Your prices are not approved</strong>, so the assistant will not quote. It collects every detail, tells the customer a member of your team will confirm the figure, and puts the enquiry in Escalations with everything you need. That is deliberate — the rates in the system now are placeholders derived from typical London market rates, not yours.</p>
+    <p>Task 2 fixes this, and it is the single most valuable thing on the list.</p>
+  </div>
+</section>
+
+<section>
+  <h3>What it does today, exactly</h3>
+  <table>
+    <tr><th>Capability</th><th>Status</th></tr>
+    <tr><td class="name">Website and service pages</td><td>Live and working</td></tr>
+    <tr><td class="name">AI assistant answering visitors</td><td>Working, using written rules rather than a language model until you add a key (Task 5)</td></tr>
+    <tr><td class="name">Quoting</td><td><strong>Deferred on purpose</strong> until you approve prices (Task 2)</td></tr>
+    <tr><td class="name">Bookings and diary</td><td>Working</td></tr>
+    <tr><td class="name">Follow-up chasing</td><td>Working</td></tr>
+    <tr><td class="name">Email replies</td><td>Drafted for your approval; sending needs Task 6</td></tr>
+    <tr><td class="name">Taking payment</td><td>Needs Task 7</td></tr>
+    <tr><td class="name">WhatsApp</td><td>Not connected; optional, Task 10</td></tr>
+    <tr><td class="name">Finding new prospects</td><td>Working — 28 real London agencies already on file, nobody contacted</td></tr>
+  </table>
+</section>
+
+<!-- ============================ PART 2 ============================ -->
+<h2 class="part newpage">Part 2 — Everything left for you to do</h2>
+
+<p>In the order I would do them. The first three are the ones that matter; the rest can follow at your own pace.</p>
+
+<div class="task must">
+  <p class="tag">Do first · legally required <span class="time">— 10 minutes, £52/year</span></p>
+  <h3>1. Register with the ICO</h3>
+  <p>Any UK organisation that handles personal data must register and pay the data protection fee. You are storing customers' names, addresses and phone numbers, so this is not optional and it carries a fixed penalty if skipped.</p>
+  <p>You are <strong>Tier 1 (micro)</strong>: up to 10 staff or £632,000 turnover. <strong>£52/year, or £47 by direct debit.</strong></p>
+  <p><strong>Go to:</strong> <a href="https://ico.org.uk/for-organisations/data-protection-fee/">ico.org.uk/for-organisations/data-protection-fee</a></p>
+  <p><strong>Then tell me the registration number</strong> and I will put it in the privacy notice, which currently has a placeholder.</p>
+</div>
+
+<div class="task must">
+  <p class="tag">Do first · unlocks quoting <span class="time">— 30–60 minutes, free</span></p>
+  <h3>2. Enter and approve your real prices</h3>
+  <p>Open <strong>Dashboard → Pricing</strong>. Go through every figure and replace it with yours: base charge, price per bedroom or per 1,000 sq ft, minimum charge, the range spread, and hours on site, for each of the three services. Then the add-ons (oven, carpets, windows, same-day, weekend), then the London zone multipliers.</p>
+  <p>When you are happy, <strong>tick the approval box at the top.</strong> Until that tick, no price ever reaches a customer.</p>
+  <p>The page shows you a worked example as you edit, so you can check what a customer would actually be told before you commit.</p>
+  <div class="note warn">
+    <p class="cap">Why this matters more than anything else</p>
+    <p>Right now every quote request becomes an escalation you answer by hand. Approve the rates and the assistant quotes instantly, at two in the morning, without you. That is most of the value of the whole system.</p>
+  </div>
+</div>
+
+<div class="task must">
+  <p class="tag">Do first · the assistant is currently silent on these <span class="time">— 20 minutes, free</span></p>
+  <h3>3. Decide your cancellation and payment terms</h3>
+  <p>Two things the assistant refuses to answer because nobody has told it the answer: <strong>what your cancellation policy is</strong> and <strong>when payment is due</strong>. Customers ask both regularly, and each one currently becomes an escalation.</p>
+  <p>Send me your answers in plain English — for example "free cancellation up to 24 hours before, half the fee after that" and "payment on completion, card or bank transfer" — and I will put them into the knowledge base and mark them approved.</p>
+  <p>Also worth settling while you are at it: how many staff you have and how long you have been trading. Both are currently marked unapproved, so the assistant will not state them.</p>
+</div>
+
+<div class="task soon">
+  <p class="tag">Before launch <span class="time">— 15 minutes, £20/month</span></p>
+  <h3>4. Move hosting to Vercel Pro</h3>
+  <p>The site is on Vercel's free Hobby plan, which the company's own terms describe as <strong>for personal, non-commercial use</strong>. That has been correct for building and testing. From the day merrycleaners.co.uk points at it and real enquiries arrive, it is commercial use and Pro is the compliant plan.</p>
+  <p><strong>$20/month.</strong> Upgrade at <a href="https://vercel.com/pricing">vercel.com/pricing</a> — it is a plan change on the account that already holds the site, not a redeployment.</p>
+</div>
+
+<div class="task soon">
+  <p class="tag">Before launch <span class="time">— 20 minutes, from $5/month</span></p>
+  <h3>5. Add an Anthropic API key</h3>
+  <p>Today the assistant answers from written rules. They are careful and they never invent anything, but they cannot handle a question phrased unusually. With a key it becomes genuinely conversational — and every guardrail, price rule and booking rule stays exactly as it is, because those run before the model is ever consulted.</p>
+  <p><strong>Create a key</strong> at <a href="https://console.anthropic.com/">console.anthropic.com</a>, add credit (start with $5), then paste the key into Vercel as <strong>ANTHROPIC_API_KEY</strong>. Expect roughly $5–15/month at this volume.</p>
+  <p>Test it afterwards in <strong>Dashboard → Mock mode</strong>, which runs rehearsal conversations through the real assistant without touching a real customer.</p>
+</div>
+
+<div class="task soon">
+  <p class="tag">Before launch <span class="time">— 30 minutes, free</span></p>
+  <h3>6. Connect email sending</h3>
+  <p>Create a free account at <a href="https://resend.com">resend.com</a>, verify merrycleaners.co.uk by adding the DNS records it gives you, then paste the API key into Vercel as <strong>RESEND_API_KEY</strong>.</p>
+  <p>Free tier: 3,000 emails a month, 100 a day. That covers several hundred enquiries — you would need roughly a thousand a month before paying.</p>
+  <p>Until this is done, replies are drafted and held in Escalations but never sent.</p>
+</div>
+
+<div class="task soon">
+  <p class="tag">When you want to take deposits <span class="time">— 45 minutes, pay per transaction</span></p>
+  <h3>7. Connect Stripe</h3>
+  <p>Only needed if you want customers to pay a deposit or the full amount online. Create an account at <a href="https://stripe.com/gb">stripe.com/gb</a>, complete their identity checks, and paste the secret key into Vercel as <strong>STRIPE_SECRET_KEY</strong>.</p>
+  <p>No monthly fee. <strong>1.5% + 20p</strong> per UK card payment. On a £200 end-of-tenancy clean that is about £3.20.</p>
+</div>
+
+<div class="task soon">
+  <p class="tag">Before launch <span class="time">— 20 minutes, free</span></p>
+  <h3>8. Point your domain at the new site</h3>
+  <p>The site currently lives at merry-cleaners.vercel.app. When you are satisfied with it, add merrycleaners.co.uk as a domain in the Vercel dashboard and update the DNS records at whoever you bought the domain from.</p>
+  <div class="note warn">
+    <p class="cap">Do this last</p>
+    <p>The moment DNS changes, this becomes the live site your customers see. Everything above should be done first — particularly approving your prices.</p>
+  </div>
+</div>
+
+<div class="task later">
+  <p class="tag">Worth doing · free <span class="time">— 10 minutes</span></p>
+  <h3>9. Get a free Companies House API key</h3>
+  <p>Improves the prospecting agent. With a key it confirms each organisation against the official register — that it exists, that it is still trading, what it actually does — which lifts a prospect from "medium" to "very high" confidence before you approach anyone.</p>
+  <p>Free, no card. Register at <a href="https://developer.company-information.service.gov.uk/">developer.company-information.service.gov.uk</a>, then paste it into Vercel as <strong>COMPANIES_HOUSE_API_KEY</strong>.</p>
+</div>
+
+<div class="task later">
+  <p class="tag">Optional <span class="time">— 1–2 hours</span></p>
+  <h3>10. WhatsApp Business (optional)</h3>
+  <p>Only if you want the assistant answering on WhatsApp as well as the website. It needs a Meta Business account, a verified business, and a phone number that is not already on WhatsApp. Free for the first 1,000 service conversations a month.</p>
+  <p>My honest advice: leave this until the website side is earning. It is the most fiddly setup on this list and the least likely to change your revenue.</p>
+</div>
+
+<div class="task later">
+  <p class="tag">Within a few months <span class="time">— $25/month</span></p>
+  <h3>11. Move Supabase to Pro</h3>
+  <p>The database is on the free tier, which has <strong>no backups</strong> and <strong>pauses after a week of inactivity</strong>. That is fine while you are testing. Once real customer records are in it, the lack of backups is the risk — one bad day and there is no way back.</p>
+  <p>Not urgent on day one, but do not leave it a year. <a href="https://supabase.com/pricing">supabase.com/pricing</a></p>
+</div>
+
+<div class="task later">
+  <p class="tag">Ongoing <span class="time">— a few minutes a week</span></p>
+  <h3>12. Work the prospect list</h3>
+  <p>There are already 28 real London agencies on file, found in public records. Nobody has been contacted. Open <strong>Dashboard → Prospects</strong>, read a record, check the draft approach it has written, and send it yourself if you are happy with it.</p>
+  <p>The system deliberately will not send anything for you, and cannot send in bulk. Twenty considered approaches will beat a thousand automated ones, and it keeps your domain out of spam filters.</p>
+</div>
+
+<!-- ============================ PART 3 ============================ -->
+<h2 class="part newpage">Part 3 — Every subscription you need</h2>
+
+<p>Checked against each provider's official pricing page on 19 September 2026. SaaS prices change — re-check on the day you sign up. Dollar figures are what the provider charges; sterling is converted at roughly $1.27 = £1.</p>
+
+<section>
+  <h3>Required — the system cannot run properly without these</h3>
+  <table>
+    <tr><th>Service</th><th>What it does</th><th>Plan</th><th>Cost</th></tr>
+    <tr>
+      <td class="name">Vercel<span class="url">vercel.com/pricing</span></td>
+      <td>Hosts the website, the API and the assistant. Already deployed here.</td>
+      <td>Pro</td>
+      <td class="num">$20/mo<br>≈£16</td>
+    </tr>
+    <tr>
+      <td class="name">ICO fee<span class="url">ico.org.uk/for-organisations/data-protection-fee</span></td>
+      <td>Legally required UK registration for handling personal data.</td>
+      <td>Tier 1</td>
+      <td class="num">£52/yr<br>≈£4/mo</td>
+    </tr>
+    <tr>
+      <td class="name">Domain<span class="url">your existing registrar</span></td>
+      <td>merrycleaners.co.uk — you already own it.</td>
+      <td>Renewal</td>
+      <td class="num">≈£12/yr<br>≈£1/mo</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h3>Strongly recommended — it works without these, but poorly</h3>
+  <table>
+    <tr><th>Service</th><th>What it does</th><th>Plan</th><th>Cost</th></tr>
+    <tr>
+      <td class="name">Anthropic<span class="url">console.anthropic.com</span></td>
+      <td>Makes the assistant genuinely conversational instead of rule-driven. Pay for what you use.</td>
+      <td>Pay as you go</td>
+      <td class="num">≈$5–15/mo<br>≈£4–12</td>
+    </tr>
+    <tr>
+      <td class="name">Supabase<span class="url">supabase.com/pricing</span></td>
+      <td>The database holding every lead, booking, message and audit record. Free tier has no backups and pauses when idle.</td>
+      <td>Free now,<br>Pro within months</td>
+      <td class="num">$0 → $25/mo<br>→ ≈£20</td>
+    </tr>
+    <tr>
+      <td class="name">Resend<span class="url">resend.com/pricing</span></td>
+      <td>Sends quotes, follow-ups and booking confirmations from your own domain.</td>
+      <td>Free</td>
+      <td class="num">£0</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h3>Only when you need them</h3>
+  <table>
+    <tr><th>Service</th><th>What it does</th><th>Plan</th><th>Cost</th></tr>
+    <tr>
+      <td class="name">Stripe<span class="url">stripe.com/gb</span></td>
+      <td>Takes card payments and deposits online.</td>
+      <td>Standard</td>
+      <td class="num">1.5% + 20p<br>per payment</td>
+    </tr>
+    <tr>
+      <td class="name">WhatsApp Business<span class="url">business.facebook.com</span></td>
+      <td>The assistant answering on WhatsApp too.</td>
+      <td>Free tier</td>
+      <td class="num">£0 to<br>1,000/mo</td>
+    </tr>
+    <tr>
+      <td class="name">Companies House<span class="url">developer.company-information.service.gov.uk</span></td>
+      <td>Verifies prospects against the official register.</td>
+      <td>Free</td>
+      <td class="num">£0</td>
+    </tr>
+    <tr>
+      <td class="name">Google Ads<span class="url">ads.google.com</span></td>
+      <td>Optional advertising. Entirely your choice of budget.</td>
+      <td>Pay per click</td>
+      <td class="num">your budget</td>
+    </tr>
+  </table>
+  <div class="note">
+    <p class="cap">Not needed</p>
+    <p><strong>Prospecting costs nothing.</strong> Its data comes from OpenStreetMap, Companies House and companies' own websites — all free — and it sends nothing automatically, so there is no outreach tool to buy. No paid data provider is used or required.</p>
+  </div>
+</section>
+
+<section>
+  <h3>What it adds up to</h3>
+  <div class="totals">
+    <div class="tot">
+      <p class="cap">Bare minimum</p>
+      <p class="amt">≈£21</p>
+      <p class="yr">per month · ≈£252/year</p>
+      <p class="desc">Vercel Pro, ICO fee, domain. Resend and Supabase free. No AI key, so the assistant stays rule-driven — it still qualifies, quotes, books, chases and escalates.</p>
+    </div>
+    <div class="tot lead">
+      <p class="cap">What I would run</p>
+      <p class="amt">≈£50</p>
+      <p class="yr">per month · ≈£600/year</p>
+      <p class="desc">The above plus an AI key and Supabase Pro. A conversational assistant and a database that is actually backed up.</p>
+    </div>
+    <div class="tot">
+      <p class="cap">Plus, if you use them</p>
+      <p class="amt">usage</p>
+      <p class="yr">no monthly fee</p>
+      <p class="desc">Stripe at 1.5% + 20p per payment. Google Ads at whatever you set. WhatsApp free at this volume.</p>
+    </div>
+  </div>
+  <div class="note">
+    <p class="cap">For comparison</p>
+    <p>One end-of-tenancy clean typically covers the entire monthly bill for the recommended setup.</p>
+  </div>
+</section>
+
+<!-- ============================ PART 4 ============================ -->
+<h2 class="part newpage">Part 4 — Security</h2>
+
+<p>The system was reviewed twice, the second time as a deliberate attempt to break it. Seven weaknesses were found and all seven are fixed and covered by tests, so if one is ever undone the test suite fails.</p>
+
+<section>
+  <table>
+    <tr><th>What was wrong</th><th>What it would have allowed</th><th>Now</th></tr>
+    <tr>
+      <td class="name">The server would fetch any address given to it</td>
+      <td>Prospect websites come from OpenStreetMap, which anyone can edit. A hostile entry could have made your server read its own internal systems and display the result in your dashboard.</td>
+      <td>Fixed</td>
+    </tr>
+    <tr>
+      <td class="name">A guessable key could sign a dashboard session</td>
+      <td>If a setting were ever missing, someone could forge a sign-in without knowing your password.</td>
+      <td>Fixed — it now locks instead</td>
+    </tr>
+    <tr>
+      <td class="name">Scheduled jobs allowed anyone through if their password was unset</td>
+      <td>Strangers triggering your automated runs, or posting fake customer emails into your inbox.</td>
+      <td>Fixed — refuses instead</td>
+    </tr>
+    <tr>
+      <td class="name">Passwords could be guessed without limit</td>
+      <td>An automated attack on the one password protecting the dashboard.</td>
+      <td>Fixed — 10 tries per 15 minutes</td>
+    </tr>
+    <tr>
+      <td class="name">One visitor could read another customer's record</td>
+      <td>Someone holding a customer reference could ask the assistant about that person and get their name, postcode and booking dates.</td>
+      <td>Fixed</td>
+    </tr>
+    <tr>
+      <td class="name">The browser had no security instructions</td>
+      <td>An injected script would have run; your booking form could be hidden inside another site.</td>
+      <td>Fixed</td>
+    </tr>
+    <tr>
+      <td class="name">Internal error text was shown to visitors</td>
+      <td>Leaked details about how the system is built.</td>
+      <td>Fixed</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h3>Three things that stay your responsibility</h3>
+  <ul>
+    <li><strong>Use a strong dashboard password</strong> and do not reuse it anywhere else. One password protects every customer record. A long phrase of four unrelated words beats a short complicated one.</li>
+    <li><strong>Never paste an API key into a chat, an email or a document.</strong> They go into the Vercel environment variables and nowhere else. Anyone holding your Anthropic key can spend your money; anyone holding your Supabase key can read every customer record.</li>
+    <li><strong>Sign out on a shared or public computer.</strong> The dashboard is never cached or indexed, but a session lasts seven days on the machine you used.</li>
+  </ul>
+  <div class="note">
+    <p class="cap">Also worth knowing</p>
+    <p>The database has row-level security switched on with no public access rules at all, so it can only be reached through the server's own key — there is no public route to your customer data. Dependencies were audited: <strong>zero known vulnerabilities</strong> across eight runtime packages.</p>
+  </div>
+</section>
+
+<section>
+  <h3>Reading order, if you only do three things</h3>
+  <ol>
+    <li><strong>Register with the ICO</strong> — it is a legal requirement and takes ten minutes.</li>
+    <li><strong>Approve your prices</strong> — it is what turns the assistant from a message-taker into something that sells.</li>
+    <li><strong>Upgrade Vercel to Pro</strong> — before real customers arrive, because the free plan is not licensed for commercial use.</li>
+  </ol>
+  <p>Everything else can wait, and nothing else is blocking you.</p>
+</section>
+
+<div class="footer">
+  <p>Merry Cleaners — go-live checklist and subscriptions. Prepared 19 September 2026. Prices checked on that date against each provider's official pricing page; re-check on the day you subscribe. No paid service has been activated as part of this work.</p>
+  <p>Companion documents: <strong>Merry Cleaners — System Guide</strong> (what every tab does) and <strong>Merry Cleaners — Go-Live Cost and Schedule</strong> (the detailed cost breakdown).</p>
+</div>
+
+</body>
+</html>

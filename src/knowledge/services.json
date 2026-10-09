@@ -1,0 +1,121 @@
+{
+  "$comment": "The three services the business offers. This is the single source of truth for both the website copy and what the AI agent may say a service includes. Adding a service here makes the agent offer it - do not add one the business does not actually provide.",
+
+  "services": [
+    {
+      "slug": "office-cleaning",
+      "type": "office",
+      "name": "Office & Commercial Cleaning",
+      "shortName": "Office cleaning",
+      "growth_priority": 2,
+      "audience": "For offices, studios, retail units and managed workspaces",
+      "sizing_question": "floor_area_sqft",
+      "summary": "A scheduled, contract-quality clean that keeps your workplace presentable for staff, clients and building management. Daily, several times a week, or weekly - always by the same vetted team wherever possible.",
+      "includes": [
+        "Desks, workstations, meeting rooms and communal surfaces sanitised",
+        "Floors vacuumed and hard floors mopped throughout",
+        "Kitchens and breakout areas cleaned, with appliances wiped down",
+        "Washrooms cleaned, sanitised and restocked with your consumables",
+        "Waste and recycling collected and taken to your designated point",
+        "Touch points - handles, switches, lift buttons - disinfected",
+        "Reception and client-facing areas presented to a front-of-house standard"
+      ],
+      "excludes": [
+        "External window cleaning above ground floor",
+        "Specialist IT equipment cleaning",
+        "Clinical or laboratory decontamination"
+      ],
+      "proofPoints": [
+        "Out-of-hours and weekend slots so your working day is never disrupted",
+        "A named account contact and a documented cleaning specification",
+        "Key-holding and alarm procedures agreed in writing before we start"
+      ],
+      "priceHint": "Priced on floor area, frequency and scope. Ask for an estimate in the chat, or request a site visit."
+    },
+    {
+      "slug": "end-of-tenancy-cleaning",
+      "type": "end_of_tenancy",
+      "name": "End of Tenancy Cleaning",
+      "shortName": "End of tenancy",
+      "growth_priority": 1,
+      "audience": "For estate agents, letting agents, landlords and Airbnb hosts",
+      "sizing_question": "bedrooms",
+      "summary": "A full property clean prepared to inventory-checkout standard, with before and after photographs supplied as evidence. Built for agents and landlords who need a property turned around quickly and let again without dispute.",
+      "includes": [
+        "Kitchen deep cleaned, including cupboards inside and out",
+        "Appliances cleaned inside, including oven, hob and extractor",
+        "Bathrooms descaled, sanitised and polished throughout",
+        "Limescale removed from taps, screens, tiles and sanitaryware",
+        "All floors vacuumed, mopped and edges detailed",
+        "Skirting boards, doors, frames, switches and sockets wiped",
+        "Interior windows, sills and frames cleaned",
+        "Cobwebs removed and light fittings dusted"
+      ],
+      "excludes": [
+        "Removal of tenants' belongings or bulky waste",
+        "Repairs, redecoration or damage restoration",
+        "Exterior windows above ground floor"
+      ],
+      "proofPoints": [
+        "Photographic before and after record supplied with every job",
+        "Our re-clean guarantee covers you if the inventory clerk raises a point",
+        "Rapid turnarounds for agents working to a check-in date"
+      ],
+      "priceHint": "Priced on the number of bedrooms, the condition of the property and any extras such as carpets or ovens."
+    },
+    {
+      "slug": "domestic-cleaning",
+      "type": "domestic",
+      "name": "Domestic Cleaning",
+      "shortName": "Domestic cleaning",
+      "growth_priority": 3,
+      "audience": "For homeowners, tenants and busy households across London",
+      "sizing_question": "bedrooms",
+      "summary": "Regular or one-off cleaning of your home by the same trusted, DBS-checked cleaner wherever possible, worked to a checklist you agree with us in advance.",
+      "includes": [
+        "Kitchen surfaces, sink and appliance exteriors cleaned",
+        "Bathrooms cleaned, sanitised and polished",
+        "Dusting and wiping of all reachable surfaces",
+        "Floors vacuumed and mopped throughout",
+        "Beds made and general tidying to your instructions",
+        "Bins emptied and liners replaced"
+      ],
+      "excludes": [
+        "Clearance of hoarded or heavily soiled properties",
+        "Cleaning requiring ladders above two metres",
+        "Care or childcare duties of any kind"
+      ],
+      "proofPoints": [
+        "Weekly, fortnightly or one-off visits to suit your household",
+        "The same cleaner each visit wherever scheduling allows",
+        "All products and equipment supplied unless you prefer your own"
+      ],
+      "priceHint": "Priced on the number of bedrooms, how often you would like us, and any extras."
+    }
+  ],
+
+  "not_offered": {
+    "$comment": "Requests matching these are declined politely and escalated. The live merrycleaners.co.uk site lists some of these; they are excluded here because the owner's brief named three services only. Add a service above if the business decides to offer it through this system.",
+    "terms": [
+      "gardening",
+      "garden maintenance",
+      "pest control",
+      "man and van",
+      "removals",
+      "handyman",
+      "plumbing",
+      "electrician",
+      "painting and decorating",
+      "gutter",
+      "roof clean",
+      "laundry service",
+      "dry cleaning",
+      "ironing service",
+      "waste removal",
+      "rubbish clearance",
+      "chimney",
+      "pressure washing driveway"
+    ],
+    "response": "We specialise in office cleaning, end of tenancy cleaning and domestic cleaning, so that particular service sits outside what we provide. A member of our team is happy to point you in the right direction if that would be useful."
+  }
+}

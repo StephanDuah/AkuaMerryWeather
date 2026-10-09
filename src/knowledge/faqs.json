@@ -1,0 +1,111 @@
+{
+  "$comment": "Answers the AI agent may give verbatim or paraphrase. Every entry marked approved:true must be a fact the business can evidence. If a customer asks something not covered here and not covered by services/company/policies, the agent escalates rather than improvising. Add entries as the owner confirms more policy.",
+
+  "faqs": [
+    {
+      "id": "areas",
+      "approved": true,
+      "question": "Which areas do you cover?",
+      "keywords": ["area", "cover", "where", "london", "postcode", "travel", "zone"],
+      "answer": "We work across Greater London and nowhere else. If you give me the postcode I can confirm straight away whether it is within our coverage."
+    },
+    {
+      "id": "services",
+      "approved": true,
+      "question": "What services do you offer?",
+      "keywords": ["service", "offer", "do you do", "types", "what kind"],
+      "answer": "We provide three services: office and commercial cleaning, end of tenancy cleaning, and domestic cleaning. We focus on those rather than offering everything, which is why we can tell you exactly what is included before a team arrives."
+    },
+    {
+      "id": "insurance",
+      "approved": true,
+      "question": "Are you insured?",
+      "keywords": ["insured", "insurance", "liability", "cover", "covered"],
+      "answer": "Yes. Comprehensive public liability cover is in place for every job we undertake, and we can provide documentation on request."
+    },
+    {
+      "id": "vetting",
+      "approved": true,
+      "question": "Are your cleaners vetted?",
+      "keywords": ["dbs", "vetted", "checked", "background", "trust", "trusted", "safe", "security"],
+      "answer": "Every cleaner who enters your property has been DBS-checked and reference-verified before their first shift, and is trained against a written checklist for the service."
+    },
+    {
+      "id": "guarantee",
+      "approved": true,
+      "question": "What if I am not happy with the clean?",
+      "keywords": ["guarantee", "not happy", "unhappy", "redo", "re-clean", "standard", "missed"],
+      "answer": "Every clean is covered by our re-clean guarantee. If any area falls short of the agreed specification, tell us within 48 hours and we will return and put it right at no further cost."
+    },
+    {
+      "id": "photos",
+      "approved": true,
+      "question": "Do you provide evidence of the work?",
+      "keywords": ["photo", "photographs", "evidence", "proof", "inventory", "checkout", "record", "report"],
+      "answer": "Yes. We record the condition of the property on arrival and on completion, which gives landlords and agents a clear photographic record of the work."
+    },
+    {
+      "id": "products",
+      "approved": true,
+      "question": "Do you bring your own equipment and products?",
+      "keywords": ["equipment", "products", "supplies", "bring", "materials", "own"],
+      "answer": "Yes, we supply all products and equipment as standard. If you would prefer we use your own, simply let us know when booking."
+    },
+    {
+      "id": "hours",
+      "approved": true,
+      "question": "When are you open?",
+      "keywords": ["hours", "open", "when", "time", "weekend", "saturday", "sunday", "evening"],
+      "answer": "Our office is open Monday to Saturday, 08:00 to 18:00. For offices we also work out of hours and at weekends so that your working day is not disrupted."
+    },
+    {
+      "id": "reviews",
+      "approved": true,
+      "question": "Can I see reviews or references?",
+      "keywords": ["review", "reference", "testimonial", "feedback", "rating"],
+      "answer": "We are happy to share references and reviews on request. Let me take your details and a member of our team will send them across."
+    },
+    {
+      "id": "same_cleaner",
+      "approved": true,
+      "question": "Will I get the same cleaner each time?",
+      "keywords": ["same cleaner", "regular", "same team", "consistent", "who comes"],
+      "answer": "Wherever scheduling allows, yes. For regular domestic work and for office contracts we keep the same vetted team on the property."
+    },
+    {
+      "id": "how_to_book",
+      "approved": true,
+      "question": "How do I book?",
+      "keywords": ["book", "booking", "arrange", "schedule", "how do i"],
+      "answer": "I can take the details now. I will need the service you need, the postcode, the size of the property and any extras, and then I can check which dates we have free."
+    },
+
+    {
+      "id": "cancellation",
+      "approved": false,
+      "question": "What is your cancellation policy?",
+      "keywords": ["cancel", "cancellation", "reschedule", "postpone", "notice", "change the date"],
+      "answer": null,
+      "escalate": true,
+      "reason": "No cancellation policy has been supplied by the business. The agent must not invent notice periods or fees."
+    },
+    {
+      "id": "payment_terms",
+      "approved": false,
+      "question": "How and when do I pay?",
+      "keywords": ["pay", "payment", "invoice", "deposit", "card", "bank transfer", "terms"],
+      "answer": null,
+      "escalate": true,
+      "reason": "Payment terms have not been supplied, and all payment matters are escalated to a human by policy."
+    },
+    {
+      "id": "staff_numbers",
+      "approved": false,
+      "question": "How many cleaners do you have? How long have you been trading?",
+      "keywords": ["how many", "how long", "years", "experience", "team size", "staff", "established"],
+      "answer": null,
+      "escalate": true,
+      "reason": "Team size and trading history have not been confirmed by the business. The live website carries figures that conflict with other information supplied, so the agent must not repeat them."
+    }
+  ]
+}

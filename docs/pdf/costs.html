@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Merry Cleaners — Go-Live Cost &amp; Schedule</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 16mm; }
+
+  :root {
+    --ink: #101316;
+    --body: #33404a;
+    --meta: #5c666d;
+    --rule: #d3d9dd;
+    --blue: #06628f;
+    --amber: #b06a12;
+    --green: #0f6b3f;
+    --paper: #f4f6f7;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, system-ui, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: var(--body);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h1, h2, h3 { color: var(--ink); margin: 0; font-weight: 600; }
+
+  .cover { height: 245mm; display: flex; flex-direction: column; justify-content: center; page-break-after: always; }
+  .cover .kicker { font-size: 8.5pt; letter-spacing: .22em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+  .cover h1 { font-size: 30pt; line-height: 1.1; margin-top: 10mm; letter-spacing: -.02em; }
+  .cover .sub { font-size: 12pt; color: var(--meta); margin-top: 6mm; max-width: 125mm; }
+  .cover .meta { margin-top: 16mm; border-top: 2px solid var(--ink); padding-top: 5mm; font-size: 9.5pt; color: var(--meta); }
+  .cover .meta strong { color: var(--ink); }
+
+  h2.part { font-size: 16pt; border-bottom: 2px solid var(--ink); padding-bottom: 2.5mm; margin-top: 12mm; }
+  .newpage { page-break-before: always; }
+  section { page-break-inside: avoid; margin-top: 8mm; }
+
+  p { margin: 2.5mm 0 0; }
+  ul, ol { margin: 2.5mm 0 0; padding-left: 5mm; }
+  li { margin-top: 1.5mm; }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--blue); text-decoration: none; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 3.5mm; font-size: 9.5pt; }
+  th { text-align: left; font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase; color: var(--meta); border-bottom: 1px solid var(--rule); padding: 2mm 3mm 1.5mm 0; font-weight: 600; }
+  td { border-bottom: 1px solid var(--rule); padding: 2.2mm 3mm 2.2mm 0; vertical-align: top; }
+  td.name { color: var(--ink); font-weight: 600; white-space: nowrap; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .url { display: block; font-size: 8pt; color: var(--meta); font-weight: 400; }
+
+  .scenarios { display: flex; gap: 4mm; margin-top: 5mm; }
+  .scen { flex: 1; border: 1px solid var(--rule); border-top: 3px solid var(--rule); padding: 4mm; }
+  .scen.lead { border-top-color: var(--amber); }
+  .scen .cap { font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase; color: var(--meta); font-weight: 600; }
+  .scen .amt { font-size: 20pt; color: var(--ink); font-weight: 600; margin-top: 2mm; font-variant-numeric: tabular-nums; }
+  .scen .yr { font-size: 8.5pt; color: var(--meta); }
+  .scen .desc { font-size: 8.5pt; margin-top: 2.5mm; }
+
+  .note { background: var(--paper); border-radius: 2px; padding: 3.5mm 4mm; margin-top: 3.5mm; font-size: 9.5pt; }
+  .note .cap { font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; color: var(--meta); font-weight: 600; }
+  .warn { background: #fdf4e7; border-left: 3px solid var(--amber); }
+  .good { background: #eaf5ee; border-left: 3px solid var(--green); }
+
+  .step { page-break-inside: avoid; margin-top: 5mm; border-left: 3px solid var(--blue); padding-left: 5mm; }
+  .step h3 { font-size: 11.5pt; }
+  .step .when { font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+
+  .footer { margin-top: 12mm; border-top: 1px solid var(--rule); padding-top: 3mm; font-size: 8.5pt; color: var(--meta); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="kicker">Merry Cleaners</p>
+  <h1>Go-live cost<br>&amp; schedule</h1>
+  <p class="sub">Every service the system needs, which plan to choose, what it costs, and the order to switch things on.</p>
+  <div class="meta">
+    <p><strong>Prices checked</strong> &nbsp; 19 September 2026, from each provider&rsquo;s official pricing page</p>
+    <p><strong>Currency</strong> &nbsp; Converted at roughly $1.27 = £1</p>
+    <p style="margin-top:4mm"><strong>No paid service has been activated.</strong> Nothing subscribed, no credit purchased, no payment details entered.</p>
+  </div>
+</div>
+
+<h2 class="part">The bottom line</h2>
+
+<div class="scenarios">
+  <div class="scen lead">
+    <p class="cap">A · Minimum viable</p>
+    <p class="amt">£21<span style="font-size:10pt">/mo</span></p>
+    <p class="yr">≈ £252 a year</p>
+    <p class="desc">Legal and durable. Scripted assistant, no AI key. Still qualifies, quotes, books, follows up and escalates.</p>
+  </div>
+  <div class="scen">
+    <p class="cap">B · Recommended</p>
+    <p class="amt">£48<span style="font-size:10pt">/mo</span></p>
+    <p class="yr">≈ £576 a year</p>
+    <p class="desc">Fully conversational assistant, database backups. What I would run for a growing London cleaning company.</p>
+  </div>
+  <div class="scen">
+    <p class="cap">C · Expanded</p>
+    <p class="amt">£95<span style="font-size:10pt">+/mo</span></p>
+    <p class="yr">≈ £1,140+ a year</p>
+    <p class="desc">Adds WhatsApp, a professional mailbox, error monitoring and heavier AI use.</p>
+  </div>
+</div>
+
+<p style="margin-top:5mm">Plus <strong>Stripe at 1.5% + 20p</strong>, charged only on money you actually receive. A £300 clean costs £4.70 in fees.</p>
+
+<div class="note warn">
+  <p class="cap">One correction</p>
+  <p>Earlier in the build I told you this would cost nothing to run. That was true while testing, but <strong>Vercel&rsquo;s free plan is licensed for personal, non-commercial projects</strong> — their own pricing page says so. A trading business needs the £16/month Pro plan. That single line is most of the minimum figure above.</p>
+</div>
+
+<h2 class="part newpage">Required — cannot run without these</h2>
+
+<table>
+  <tr><th>Service</th><th>What it does</th><th>Plan</th><th>Cost</th></tr>
+  <tr>
+    <td class="name">Vercel<span class="url">vercel.com/pricing</span></td>
+    <td>Hosts the website, the API and the agent. Already deployed here.</td>
+    <td>Pro</td>
+    <td class="num">$20/mo<br><span class="url">≈ £16</span></td>
+  </tr>
+  <tr>
+    <td class="name">ICO<span class="url">ico.org.uk</span></td>
+    <td>Mandatory UK registration for any business holding customer records. <strong>Legally required</strong>, with a fixed penalty for not paying.</td>
+    <td>Tier 1</td>
+    <td class="num">£52/yr<br><span class="url">£47 by direct debit</span></td>
+  </tr>
+  <tr>
+    <td class="name">Domain</td>
+    <td>merrycleaners.co.uk — you already own it, it just needs pointing at the new site.</td>
+    <td>—</td>
+    <td class="num">≈ £10–15/yr</td>
+  </tr>
+</table>
+
+<h2 class="part">Strongly recommended</h2>
+
+<table>
+  <tr><th>Service</th><th>What it does</th><th>Plan</th><th>Cost</th></tr>
+  <tr>
+    <td class="name">Supabase<span class="url">supabase.com/pricing</span></td>
+    <td>Your database — every lead, booking, message and escalation. Free tier gives 500 MB but <strong>no backups</strong> and pauses after a week of inactivity.</td>
+    <td>Free → Pro</td>
+    <td class="num">£0<br><span class="url">then $25/mo</span></td>
+  </tr>
+  <tr>
+    <td class="name">Anthropic<span class="url">claude.com/pricing</span></td>
+    <td>Powers the conversational assistant. <strong>No free tier.</strong> Pay per conversation.</td>
+    <td>Sonnet 5</td>
+    <td class="num">≈ £2–9/mo</td>
+  </tr>
+  <tr>
+    <td class="name">Resend<span class="url">resend.com/pricing</span></td>
+    <td>Sends quotes, follow-ups and confirmations from your own domain. 3,000 emails a month, 100 a day.</td>
+    <td>Free</td>
+    <td class="num">£0</td>
+  </tr>
+</table>
+
+<div class="note">
+  <p class="cap">What the AI actually costs, per conversation</p>
+  <p>Roughly six exchanges, with the instructions cached — this system already caches, which cuts repeat cost by about 90%.</p>
+  <table style="margin-top:2mm">
+    <tr><th>Model</th><th>Each</th><th>100/month</th><th>400/month</th></tr>
+    <tr><td class="name">Opus 5</td><td class="num">≈ 6p</td><td class="num">≈ £6</td><td class="num">≈ £23</td></tr>
+    <tr><td class="name">Sonnet 5 ← recommended</td><td class="num">≈ 2p</td><td class="num">≈ £2</td><td class="num">≈ £9</td></tr>
+    <tr><td class="name">Haiku 4.5</td><td class="num">≈ 1p</td><td class="num">≈ £1</td><td class="num">≈ £5</td></tr>
+  </table>
+  <p style="margin-top:3mm">The assistant&rsquo;s job is narrow and heavily constrained by tools, so it does not need the most expensive model. Switching is one setting, no code change. <strong>Set a spending cap in the console — £15/month is sensible.</strong></p>
+</div>
+
+<div class="note good">
+  <p class="cap">The genuinely free option</p>
+  <p>Leave the AI key unset and the scripted engine still qualifies leads, collects quote details, checks availability, books, escalates and follows up. It simply follows a fixed path instead of conversing. <strong>That is what is running today, at £0.</strong></p>
+</div>
+
+<h2 class="part newpage">When you take money and messages</h2>
+
+<table>
+  <tr><th>Service</th><th>What it does</th><th>Cost</th></tr>
+  <tr>
+    <td class="name">Stripe<span class="url">stripe.com/gb/pricing</span></td>
+    <td>Card payment online. No monthly fee, no setup fee — Stripe states it charges neither.</td>
+    <td class="num">1.5% + 20p<br><span class="url">UK cards. EEA 2.5%, intl 3.15%</span></td>
+  </tr>
+  <tr>
+    <td class="name">WhatsApp<span class="url">whatsappbusiness.com</span></td>
+    <td>Messaging leads who give a phone number but no email. <strong>Service replies are free</strong> — everything this system sends is a reply.</td>
+    <td class="num">≈ £0<br><span class="url">cost is verification time</span></td>
+  </tr>
+</table>
+
+<h2 class="part">Free, but you still must set them up</h2>
+
+<table>
+  <tr><th>Service</th><th>What it does</th><th>Cost</th></tr>
+  <tr><td class="name">GitHub</td><td>Stores the code, deploys updates automatically</td><td class="num">£0</td></tr>
+  <tr><td class="name">cron-job.org</td><td>Triggers the 5-minute follow-ups. Not needed if you take Vercel Pro.</td><td class="num">£0</td></tr>
+  <tr><td class="name">Google Business Profile</td><td>Maps and local search listing — the strongest free source of cleaning enquiries there is</td><td class="num">£0</td></tr>
+  <tr><td class="name">Cloudflare</td><td>Forwards incoming email into the system so replies get drafted</td><td class="num">£0</td></tr>
+</table>
+
+<h2 class="part newpage">The schedule</h2>
+<p>The order that makes sense, and roughly how long each takes.</p>
+
+<div class="step">
+  <p class="when">Stage 1 — this week · ≈ £4/month</p>
+  <h3>Make it legal and honest</h3>
+  <ol>
+    <li><strong>Register with the ICO</strong> (15 min, £52/yr). Legally required. Add the registration number to your privacy page.</li>
+    <li><strong>Enter your real prices</strong> in the Pricing tab and tick approve. Until then every enquiry needs you to send the figure.</li>
+    <li><strong>Decide your cancellation policy and payment terms.</strong> The assistant currently refuses to state either, because you have not set them.</li>
+    <li><strong>Replace the placeholder testimonials</strong> with real reviews you have permission to publish.</li>
+  </ol>
+</div>
+
+<div class="step">
+  <p class="when">Stage 2 — 10 minutes · ≈ £11/month</p>
+  <h3>Make it conversational</h3>
+  <ol>
+    <li>Create an Anthropic account, add ~£5 credit, create a key.</li>
+    <li>Set a <strong>£15/month spending cap</strong> in their console.</li>
+    <li>Add the key to Vercel and redeploy.</li>
+    <li>Re-run the test suite — the AI path has not been exercised before.</li>
+  </ol>
+</div>
+
+<div class="step">
+  <p class="when">Stage 3 — 30 minutes · ≈ £11/month</p>
+  <h3>Make it communicate</h3>
+  <ol>
+    <li><strong>Resend</strong> — verify merrycleaners.co.uk by adding DNS records. The fiddliest step on this list.</li>
+    <li><strong>Turn on mock mode while you rehearse</strong>, then turn it off. With email connected, a test conversation can reach a real person.</li>
+    <li><strong>Five-minute follow-ups</strong> — a free cron-job.org schedule, or Vercel Pro&rsquo;s scheduler.</li>
+  </ol>
+</div>
+
+<div class="step">
+  <p class="when">Stage 4 — 30 minutes · per transaction</p>
+  <h3>Take payment</h3>
+  <p>Stripe business verification, then add the key. <strong>Test with their free test keys first.</strong> Until then bookings are created unpaid with a reminder to invoice by hand.</p>
+</div>
+
+<div class="step">
+  <p class="when">Stage 5 — launch day · ≈ £48/month</p>
+  <h3>Go live properly</h3>
+  <ol>
+    <li><strong>Switch Vercel to Pro.</strong> Required once this is commercial use.</li>
+    <li><strong>Point merrycleaners.co.uk at the new site.</strong></li>
+    <li><strong>Decide about the four services</strong> the old site lists and this one does not: post-construction, hospitality, Airbnb (currently folded into end of tenancy) and before/after party cleaning. Add them, or accept the narrower offer.</li>
+    <li><strong>Supabase Pro</strong> when losing the data would genuinely hurt — realistically month three or four.</li>
+  </ol>
+</div>
+
+<div class="step">
+  <p class="when">Stage 6 — later · ≈ £95+/month</p>
+  <h3>Expand</h3>
+  <p>WhatsApp (Meta verification takes days, cost ≈ £0), error monitoring, a professional mailbox, shared-store rate limiting, and — only when staff need dashboard access — proper user accounts.</p>
+</div>
+
+<h2 class="part newpage">The honest recommendation</h2>
+
+<p>Start at <strong>Scenario A, £21 a month</strong>. It is compliant, durable and functional. Then add in this order:</p>
+
+<ol>
+  <li><strong>Anthropic key</strong> (≈ £7/month) — the biggest improvement to customer experience for the least money.</li>
+  <li><strong>Supabase Pro</strong> (£20/month) — once losing the data would hurt.</li>
+  <li><strong>WhatsApp</strong> (£0) — worth the verification time.</li>
+  <li>Everything else only when a real need appears.</li>
+</ol>
+
+<div class="note">
+  <p class="cap">For context</p>
+  <p>An agency-built website, plus a booking system, plus a CRM would be a four-figure build and well over £100 a month in subscriptions — without the AI agent, the audit trail or the escalation handling.</p>
+</div>
+
+<section>
+  <h3>What varies with usage</h3>
+  <ul>
+    <li><strong>Anthropic</strong> — the only per-conversation cost. Capped by the limit you set.</li>
+    <li><strong>Stripe</strong> — only on money you receive.</li>
+    <li><strong>Vercel and Supabase overages</strong> — realistically unreachable at your volumes.</li>
+    <li><strong>WhatsApp</strong> — £0 for the replies this system sends.</li>
+  </ul>
+  <p style="margin-top:3mm"><strong>One-off costs: none.</strong> No setup fees on any service listed.</p>
+</section>
+
+<div class="footer">
+  <p>Merry Cleaners go-live cost &amp; schedule · 19 September 2026 · SaaS pricing changes — re-check on the day you sign up · Companion document: <strong>System guide</strong></p>
+</div>
+
+</body>
+</html>
